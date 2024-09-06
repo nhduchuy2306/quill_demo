@@ -1,6 +1,6 @@
 import { TEMPLATES } from './TemplatesData.js';
 
-export function setupTemplateDropdown(quill, templateDropdown, previewContainer) {
+export function setupTemplateDropdown(quill, templateDropdown) {
     // Add options for template dropdown
     for (const template in TEMPLATES) {
         const option = document.createElement('option');
@@ -13,7 +13,8 @@ export function setupTemplateDropdown(quill, templateDropdown, previewContainer)
         const selectedTemplate = templateDropdown.value;
         if (selectedTemplate && TEMPLATES[selectedTemplate]) {
             quill.clipboard.dangerouslyPasteHTML(TEMPLATES[selectedTemplate].content);
-            previewContainer.innerText = quill.root.innerHTML;
+        } else {
+            quill.clipboard.dangerouslyPasteHTML('');
         }
     });
 }

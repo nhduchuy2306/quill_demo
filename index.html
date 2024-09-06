@@ -24,14 +24,9 @@
         <div class="wrapper-buttons">
           <select id="template-dropdown">
             <option value="">Choose Template</option>
-            <!-- ${Object.keys(TEMPLATES).map((key) => `<option value="${key}">${TEMPLATES[key].name}</option>`).join('')} -->
           </select>
-          <input type="file" id="upload-doc" accept=".doc,.docx" />
-          <select id="format">
-            <option value="doc">Doc</option>
-            <option value="pdf">PDF</option>
-            <option value="txt">TXT</option>
-          </select>
+          <input type="file" id="upload-doc" />
+          <label for="upload-doc" class="file-label">Upload</label>
           <button id="save">Save</button>
         </div>
       </div>

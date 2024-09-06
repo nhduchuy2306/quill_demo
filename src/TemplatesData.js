@@ -61,18 +61,18 @@ export const TEMPLATES = {
     },
     sprintRetrospective: {
         name: "Sprint Retrospective",
-        content: `<h1>Sprint Retrospective</h1>
-                  <h2>What Went Well</h2>
+        content: `<p>Sprint Retrospective</p>
+                  <p>What Went Well</p>
                   <ul>
                     <li>[Item 1]</li>
                     <li>[Item 2]</li>
                   </ul>
-                  <h2>What Didn't Go Well</h2>
+                  <p>What Didn't Go Well</p>
                   <ul>
                     <li>[Item 1]</li>
                     <li>[Item 2]</li>
                   </ul>
-                  <h2>Action Items</h2>
+                  <p>Action Items</p>
                   <ul>
                     <li>[Action 1]</li>
                     <li>[Action 2]</li>

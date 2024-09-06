@@ -9,12 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "html-docx-js-typescript": "^0.1.5",
     "vite": "^5.4.1"
   },
   "dependencies": {
-    "docx": "^8.5.0",
     "file-saver": "^2.0.5",
-    "html-to-docx": "^1.8.0",
     "mammoth": "^1.8.0",
     "my-example-app": "file:",
     "quill": "^2.0.2",

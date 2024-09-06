@@ -1,38 +1,55 @@
-export function setupTableGrid(quill, grid) {
-    quill.getModule('toolbar').addHandler('table', () => {
-        toggleTableGrid(grid);
+export function setupTableSelector(quill, tableGridSelector) {
+    const toolbar = quill.getModule('toolbar');
+    const tableSelector = toolbar.container.querySelector('.ql-table');
+
+    toolbar.addHandler('table', () => {
+        toggleTableGridSelector(tableGridSelector);
     });
 
-    function toggleTableGrid(grid) {
-        if (!grid.classList.contains('active')) {
-            createTableGrid(grid, 9, 9);
-            grid.classList.add('active');
+    function toggleTableGridSelector(tableGridSelector) {
+        if (!tableGridSelector.classList.contains('active')) {
+            createTableGridSelector(tableGridSelector, 9, 9);
+            tableGridSelector.classList.add('active');
+            tableGridSelector.style.top = `${tableSelector.offsetTop + 25}px`;
+            tableGridSelector.style.left = `${tableSelector.offsetLeft + 25}px`;
         } else {
-            grid.classList.remove('active');
+            tableGridSelector.classList.remove('active');
         }
+
+        document.addEventListener('click', (event) => {
+            if (!tableGridSelector.contains(event.target) && !tableSelector.contains(event.target)) {
+                tableGridSelector.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                tableGridSelector.classList.remove('active');
+            }
+        });
     }
 
-    function createTableGrid(grid, rows, cols) {
-        grid.innerHTML = '';
+    function createTableGridSelector(tableGridSelector, rows, cols) {
+        tableGridSelector.innerHTML = '';
         for (let r = 0; r < rows; r++) {
             for (let c = 0; c < cols; c++) {
-                const cell = createCell(r, c);
-                grid.appendChild(cell);
+                const cell = createCellSelector(r, c);
+                tableGridSelector.appendChild(cell);
             }
         }
 
         const { container, rowInput, colInput, insertButton } = createRowAndColInputs();
-        grid.appendChild(container);
-        insertButton.addEventListener('click', () => insertTable(quill, rowInput.value, colInput.value, grid));
+        tableGridSelector.appendChild(container);
+        insertButton.addEventListener('click', () => insertTable(quill, rowInput.value, colInput.value, tableGridSelector));
     }
 
-    function createCell(r, c) {
+    function createCellSelector(r, c) {
         const cell = document.createElement('div');
         cell.className = 'cell';
         cell.dataset.row = r + 1;
         cell.dataset.col = c + 1;
         cell.addEventListener('mouseover', highlightCells);
-        cell.addEventListener('click', () => insertTable(quill, r + 1, c + 1, grid));
+        cell.addEventListener('click', () => insertTable(quill, r + 1, c + 1, tableGridSelector));
         return cell;
     }
 
@@ -79,12 +96,14 @@ export function setupTableGrid(quill, grid) {
         });
     }
 
-    function insertTable(quill, rows, cols, grid) {
+    function insertTable(quill, rows, cols, tableGridSelector) {
         const rowInIntegers = parseInt(rows, 10);
         const colInIntegers = parseInt(cols, 10);
 
         const betterTablePlus = quill.getModule('better-table-plus');
+        console.log(betterTablePlus);
+        
         betterTablePlus.insertTable(rowInIntegers, colInIntegers);
-        grid.classList.remove('active');
+        tableGridSelector.classList.remove('active');
     }
 }
